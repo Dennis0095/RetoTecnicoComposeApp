@@ -31,7 +31,11 @@ fun KriptoNagivationHost(
             }
         )
 
-        registerGraph () {  }
+        registerGraph (
+            navigateToBack = {
+                navController.popBackStack()
+            }
+        )
         managerGraph () {  }
 
     }

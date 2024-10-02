@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 
 class LocalStorage(private val prefs: SharedPreferences) {
     companion object {
-
+        const val KEY_LIST_APPS = "registered_applications"
     }
 
     fun putString(key: String, value: String?) {

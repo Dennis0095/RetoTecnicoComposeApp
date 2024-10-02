@@ -23,7 +23,9 @@ fun NavGraphBuilder.registerGraph(
             route = RegisterDestination.ROUTE_REGISTER
 
         ) {
-            RegisterAppScreen()
+            RegisterAppScreen(
+                navigateToBack = navigateToBack
+            )
         }
     }
 }
