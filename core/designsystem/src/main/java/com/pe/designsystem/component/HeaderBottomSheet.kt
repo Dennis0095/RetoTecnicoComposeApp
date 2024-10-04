@@ -20,7 +20,7 @@ fun HeaderBottomSheet(title: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp,top = 21.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 21.dp)
     ) {
 
         Text(
@@ -37,5 +37,5 @@ fun HeaderBottomSheet(title: String) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewHeaderBottomSheet() {
-        HeaderBottomSheet(title = "titulo")
+    HeaderBottomSheet(title = "titulo")
 }

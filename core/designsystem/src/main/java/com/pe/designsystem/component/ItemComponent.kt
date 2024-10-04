@@ -48,7 +48,10 @@ fun ItemComponent(
         ) {
             Text(
                 text = description,
-                style = MaterialTheme.typography.headlineSmall.copy(color = colorResource(id = R.color.white), fontSize = 16.sp)
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    color = colorResource(id = R.color.white),
+                    fontSize = 16.sp
+                )
             )
         }
     }

@@ -16,7 +16,7 @@ import com.pe.designsystem.R
 fun ModalBottomSheet(
     title: String,
     onDismiss: () -> Unit,
-    content :  @Composable () -> Unit
+    content: @Composable () -> Unit
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
 

@@ -39,7 +39,9 @@ fun SelectorComponent(
     isAccountSelected: Boolean = false,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
     ) {
 
         Box {
@@ -125,7 +127,7 @@ fun SelectorComponent(
 
 @Preview(showSystemUi = true)
 @Composable
-fun SelectorComponentPreview(){
+fun SelectorComponentPreview() {
     SelectorComponent(
         modifier = Modifier.padding(top = 20.dp),
         header = "Tipo de aplicación",

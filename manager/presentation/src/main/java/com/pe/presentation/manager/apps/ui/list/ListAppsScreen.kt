@@ -25,14 +25,12 @@ import com.pe.designsystem.component.TopBarComponent
 import com.pe.presentation.R
 import com.pe.presentation.component.ItemAppComponent
 import com.pe.presentation.component.WarningOptionsDialog
-import com.pe.presentation.manager.apps.ui.detail.DetailAppIntent
-import com.pe.presentation.util.recommendDeleting
 
 @Composable
 fun ListAppsScreen(
     navigateToBack: () -> Unit,
     navigateToDetailApp: (Int) -> Unit,
-    ){
+) {
     val viewModel: ListAppsViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -70,8 +68,8 @@ fun ListAppsScreen(
 fun ListAppsScreenContent(
     uiState: ListAppsUiState,
     onIntent: (ListAppsIntent) -> Unit
-){
-    if(uiState.showDialog){
+) {
+    if (uiState.showDialog) {
         var showDialog by remember { mutableStateOf(true) }
         WarningOptionsDialog(
             show = showDialog,
@@ -111,16 +109,23 @@ fun ListAppsScreenContent(
                     )
                 }
             } else {
-                items(uiState.listApps){ appRegistered ->
+                items(uiState.listApps) { appRegistered ->
                     //onIntent(ListAppsIntent.UpdateRecomendation(recommendDeleting(appRegistered).recommendation, appRegistered))
 
-                    ItemAppComponent(uiState = appRegistered, navigateToDetailApp = {
-                        onIntent(ListAppsIntent.OnNavigateToDetailApp(appRegistered))
-                    }, deleteApp = {
-                        onIntent(ListAppsIntent.OnShoweddDialog(appRegistered))
-                    }, showDelete = appRegistered.recommendations.isNotEmpty(), updateShowRecommendations = {
-                        onIntent(ListAppsIntent.UpdateShowRecomendation(appRegistered))
-                    }, showRecommendations = appRegistered.showRecommendation)
+                    ItemAppComponent(
+                        uiState = appRegistered,
+                        navigateToDetailApp = {
+                            onIntent(ListAppsIntent.OnNavigateToDetailApp(appRegistered))
+                        },
+                        deleteApp = {
+                            onIntent(ListAppsIntent.OnShoweddDialog(appRegistered))
+                        },
+                        showDelete = appRegistered.recommendations.isNotEmpty(),
+                        updateShowRecommendations = {
+                            onIntent(ListAppsIntent.UpdateShowRecomendation(appRegistered))
+                        },
+                        showRecommendations = appRegistered.showRecommendation
+                    )
                 }
             }
         }

@@ -190,7 +190,7 @@ fun ItemAppComponent(
                 }
 
 
-                if(uiState.recommendations.isNotEmpty()){
+                if (uiState.recommendations.isNotEmpty()) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

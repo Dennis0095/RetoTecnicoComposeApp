@@ -20,13 +20,13 @@ fun SelectorBottomSheet(
         onDismiss = onDismiss,
         content = {
             LazyColumn {
-                itemsIndexed(elements) {index, item ->
+                itemsIndexed(elements) { index, item ->
                     ItemComponent(description = item) {
                         onItemClick(item)
                         onDismiss()
                     }
 
-                    if(index< elements.lastIndex){
+                    if (index < elements.lastIndex) {
                         DividerListComponent(modifier = Modifier.padding(start = 8.dp, end = 8.dp))
                     }
                 }

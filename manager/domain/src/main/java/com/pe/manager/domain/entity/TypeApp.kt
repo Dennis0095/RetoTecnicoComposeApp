@@ -6,10 +6,11 @@ enum class TypeApp(val id: Int, val description: String) {
     FINANCE(3, "Finanzas"),
     PRODUCTIVITY(4, "Productividad"),
     LOGISTICS(5, "Logística");
-    companion object{
+
+    companion object {
         fun getTypeApp(description: String): TypeApp {
             val default: TypeApp = SECURITY
-            return TypeApp.values().find { it.description == description } ?: default
+            return entries.find { it.description == description } ?: default
         }
     }
 }

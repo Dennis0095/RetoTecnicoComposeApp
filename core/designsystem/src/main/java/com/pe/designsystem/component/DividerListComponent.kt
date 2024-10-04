@@ -14,11 +14,14 @@ import com.pe.designsystem.R
 @Composable
 fun DividerListComponent(modifier: Modifier = Modifier) {
 
-    Spacer(modifier = modifier
-        .fillMaxWidth()
-        .height(1.dp)
-        .background(colorResource(id = R.color.white).copy(0.25f)))
+    Spacer(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(1.dp)
+            .background(colorResource(id = R.color.white).copy(0.25f))
+    )
 }
+
 @Preview
 @Composable
 fun DividerListComponentPreview() {

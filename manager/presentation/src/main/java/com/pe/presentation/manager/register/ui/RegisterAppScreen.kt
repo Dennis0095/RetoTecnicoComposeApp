@@ -2,7 +2,6 @@ package com.pe.presentation.manager.register.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,7 +37,6 @@ import com.pe.manager.domain.entity.Priority
 import com.pe.manager.domain.entity.StatusApp
 import com.pe.manager.domain.entity.TypeApp
 import com.pe.presentation.R
-import com.pe.presentation.manager.apps.ui.detail.DetailAppIntent
 
 @Composable
 fun RegisterAppScreen(
@@ -348,6 +346,6 @@ fun RegisterAppScreenContent(
 
 @Preview()
 @Composable
-fun RegisterAppScreenContentPreview(){
-    RegisterAppScreenContent(RegisterAppUiState()){}
+fun RegisterAppScreenContentPreview() {
+    RegisterAppScreenContent(RegisterAppUiState()) {}
 }

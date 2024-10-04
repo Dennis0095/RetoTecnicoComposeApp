@@ -3,7 +3,6 @@ package com.pe.presentation.manager.apps.ui.detail
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,12 +30,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pe.designsystem.component.PrimaryButtonComponent
 import com.pe.designsystem.component.TopBarComponent
-import com.pe.manager.domain.entity.RegisterApp
-import com.pe.manager.domain.entity.TypeApp
 import com.pe.presentation.R
 import com.pe.presentation.component.ItemDetailAppComponent
 import com.pe.presentation.component.WarningOptionsDialog
-import com.pe.presentation.manager.register.ui.RegisterAppNavigation
 import com.pe.presentation.util.registerApp
 
 
@@ -90,7 +86,7 @@ fun DetailAppScreenContent(
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp
     )
-    if(uiState.showDialog){
+    if (uiState.showDialog) {
         var showDialog by remember { mutableStateOf(true) }
         WarningOptionsDialog(
             show = showDialog,
@@ -115,10 +111,12 @@ fun DetailAppScreenContent(
                 },
             )
         }, bottomBar = {
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 4.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 4.dp)
+            ) {
 
                 PrimaryButtonComponent(
                     modifier = Modifier
@@ -126,7 +124,7 @@ fun DetailAppScreenContent(
                         .padding(horizontal = 16.dp, vertical = 4.dp),
                     name = "Eliminar",
                     onClicked = {
-                                onIntent(DetailAppIntent.OnShoweddDialog)
+                        onIntent(DetailAppIntent.OnShoweddDialog)
                     },
                     showLoading = uiState.showLoadingButton,
                     colorBackground = R.color.red,
@@ -134,9 +132,11 @@ fun DetailAppScreenContent(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Editar",
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        onIntent(DetailAppIntent.OnNavigationEditApp)
-                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onIntent(DetailAppIntent.OnNavigationEditApp)
+                        },
                     textAlign = TextAlign.Center,
                     style = style1.copy(fontSize = 18.sp)
                 )
@@ -149,52 +149,71 @@ fun DetailAppScreenContent(
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Text(text = uiState.appRegistered.nameApp,
+            Text(
+                text = uiState.appRegistered.nameApp,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp),
                 style = style1.copy(fontSize = 20.sp, color = colorResource(id = R.color.teal_700))
-                )
+            )
             Spacer(modifier = Modifier.height(12.dp))
-            ItemDetailAppComponent("Tipo de aplicación:", uiState.appRegistered.typeApp?.description.orEmpty())
-            ItemDetailAppComponent("Estado actual:", uiState.appRegistered.statusApp?.description.orEmpty())
-            ItemDetailAppComponent("Prioridad:", uiState.appRegistered.priority?.description.orEmpty())
-            ItemDetailAppComponent("Frecuencia de uso:", uiState.appRegistered.frequency?.description.orEmpty())
+            ItemDetailAppComponent(
+                "Tipo de aplicación:",
+                uiState.appRegistered.typeApp?.description.orEmpty()
+            )
+            ItemDetailAppComponent(
+                "Estado actual:",
+                uiState.appRegistered.statusApp?.description.orEmpty()
+            )
+            ItemDetailAppComponent(
+                "Prioridad:",
+                uiState.appRegistered.priority?.description.orEmpty()
+            )
+            ItemDetailAppComponent(
+                "Frecuencia de uso:",
+                uiState.appRegistered.frequency?.description.orEmpty()
+            )
             ItemDetailAppComponent("Costos operativos:", uiState.appRegistered.costs)
             ItemDetailAppComponent("Usuarios activos:", uiState.appRegistered.usersActive)
             ItemDetailAppComponent("Número de incidentes:", uiState.appRegistered.numberOfIncidents)
 
-            Text(text = "Actividades claves",
+            Text(
+                text = "Actividades claves",
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 24.dp),
                 style = style1.copy(fontSize = 16.sp)
             )
-            Text(text = uiState.appRegistered.keyActivities,
+            Text(
+                text = uiState.appRegistered.keyActivities,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             )
 
-            Text(text = "Comentarios",
+            Text(
+                text = "Comentarios",
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 12.dp),
                 style = style1.copy(fontSize = 16.sp)
             )
-            Text(text = uiState.appRegistered.comments,
+            Text(
+                text = uiState.appRegistered.comments,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             )
 
-            Text(text = "Recomendaciones",
+            Text(
+                text = "Recomendaciones",
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 12.dp),
                 style = style1.copy(fontSize = 16.sp)
             )
-            Text(text = uiState.appRegistered.recommendations,
+            Text(
+                text = uiState.appRegistered.recommendations,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -206,7 +225,7 @@ fun DetailAppScreenContent(
 
 @Preview(showSystemUi = true)
 @Composable
-fun DetailAppScreenContentPreview(){
+fun DetailAppScreenContentPreview() {
     DetailAppScreenContent(
         uiState = registerApp,
         onIntent = {}
