@@ -50,7 +50,7 @@ fun TopBarComponent(
 
 @Preview(showBackground = true)
 @Composable
-fun TopBarComponentPreview(){
+fun TopBarComponentPreview() {
     TopBarComponent(
         title = "Configuración", onBackClicked = {}
     )

@@ -33,13 +33,15 @@ import com.pe.domain.entity.Selector
 fun SelectorComponent(
     modifier: Modifier = Modifier,
     header: String,
-    selector: Selector,
+    selector: Selector?,
     onClicked: () -> Unit,
     isShowArrow: Boolean = false,
     isAccountSelected: Boolean = false,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
     ) {
 
         Box {
@@ -90,10 +92,11 @@ fun SelectorComponent(
                 ) {
                     if (isAccountSelected) {
                         Text(
-                            text = selector.description,
+                            text = selector?.description.orEmpty(),
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 color = colorResource(id = R.color.white),
-                                lineHeight = 12.sp
+                                lineHeight = 12.sp,
+                                fontSize = 16.sp
                             )
                         )
                     } else {
@@ -102,7 +105,7 @@ fun SelectorComponent(
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 color = colorResource(id = R.color.white),
                                 lineHeight = 16.sp,
-                                fontSize = 18.sp
+                                fontSize = 16.sp
                             )
                         )
                     }
@@ -124,7 +127,7 @@ fun SelectorComponent(
 
 @Preview(showSystemUi = true)
 @Composable
-fun SelectorComponentPreview(){
+fun SelectorComponentPreview() {
     SelectorComponent(
         modifier = Modifier.padding(top = 20.dp),
         header = "Tipo de aplicación",

@@ -48,7 +48,7 @@ fun ActionButtonComponent(
 
 @Preview(showBackground = true)
 @Composable
-fun ActionButtonComponentPreview(){
+fun ActionButtonComponentPreview() {
     ActionButtonComponent(
         icon = R.drawable.ic_back,
     ) {

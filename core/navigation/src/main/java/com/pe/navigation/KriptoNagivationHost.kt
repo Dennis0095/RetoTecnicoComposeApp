@@ -27,12 +27,27 @@ fun KriptoNagivationHost(
                 navController.navigate(ManagerDestination.ROUTE_LIST)
             },
             navigateToRegister = {
-                navController.navigate(RegisterDestination.ROUTE_REGISTER)
+                navController.navigate(RegisterDestination.getRouteNavigateRegister(idApp = 999999))
             }
         )
 
-        registerGraph () {  }
-        managerGraph () {  }
+        registerGraph(
+            navigateToBack = {
+                navController.popBackStack()
+            }
+        )
+        managerGraph(
+            navigateToBack = {
+                navController.popBackStack()
+            },
+            navigateToDetailApp = {
+                navController.navigate(ManagerDestination.getRouteNavigateDetail(idApp = it))
+            },
+            navigateToEditApp = {
+                navController.navigate(RegisterDestination.getRouteNavigateRegister(idApp = it))
+            },
+
+            )
 
     }
 
