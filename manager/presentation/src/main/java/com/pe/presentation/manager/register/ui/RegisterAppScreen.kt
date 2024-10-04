@@ -2,6 +2,7 @@ package com.pe.presentation.manager.register.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pe.designsystem.component.PrimaryButtonComponent
@@ -36,14 +38,20 @@ import com.pe.manager.domain.entity.Priority
 import com.pe.manager.domain.entity.StatusApp
 import com.pe.manager.domain.entity.TypeApp
 import com.pe.presentation.R
+import com.pe.presentation.manager.apps.ui.detail.DetailAppIntent
 
 @Composable
 fun RegisterAppScreen(
     navigateToBack: () -> Unit,
+    idApp: String
 ) {
     val viewModel: RegisterAppViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.setIntent(RegisterAppIntent.ValidateRooted(idApp))
+    }
 
     LaunchedEffect(viewModel.navigation) {
         viewModel.navigation.collect {
@@ -52,7 +60,7 @@ fun RegisterAppScreen(
                 RegisterAppNavigation.NavigateToSuccessful -> {
                     Toast.makeText(
                         context,
-                        "La aplicación se ha registrado con éxito.",
+                        uiState.messageSuccessful,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -116,8 +124,6 @@ fun RegisterAppScreen(
             }
         )
     }
-
-
 }
 
 @Composable
@@ -128,7 +134,7 @@ fun RegisterAppScreenContent(
     Scaffold(containerColor = colorResource(id = R.color.white),
         topBar = {
             TopBarComponent(
-                title = "Registro de aplicaciones",
+                title = uiState.title,
                 onBackClicked = {
                     onIntent(RegisterAppIntent.OnNavigateToBack)
                 },
@@ -138,7 +144,7 @@ fun RegisterAppScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 4.dp),
-                name = "Guardar",
+                name = uiState.textButton,
                 onClicked = {
                     onIntent(RegisterAppIntent.RegisterApp)
                 },
@@ -146,7 +152,6 @@ fun RegisterAppScreenContent(
                 isEnabled = uiState.isEnabled
             )
         }) { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -182,6 +187,49 @@ fun RegisterAppScreenContent(
                 )
             )
 
+            SelectorComponent(
+                modifier = Modifier.padding(top = 20.dp),
+                header = "Tipo de aplicación",
+                selector = uiState.typeApp?.let { Selector(1, it.description) },
+                onClicked = {
+                    onIntent(RegisterAppIntent.OnShowedTypeAppSelector)
+                },
+                isShowArrow = !uiState.isTypeAppSelected,
+                isAccountSelected = uiState.isTypeAppSelected,
+            )
+            SelectorComponent(
+                modifier = Modifier.padding(top = 20.dp),
+                header = "Estado",
+                selector = uiState.statusApp?.let { Selector(1, it.description) },
+                onClicked = {
+                    onIntent(RegisterAppIntent.OnShowedStatusSelector)
+                },
+                isShowArrow = !uiState.isStatusSelected,
+                isAccountSelected = uiState.isStatusSelected,
+            )
+            SelectorComponent(
+                modifier = Modifier.padding(top = 20.dp),
+                header = "Prioridad",
+                selector = uiState.priority?.let { Selector(1, it.description) },
+                onClicked = {
+                    onIntent(RegisterAppIntent.OnShowedPrioritySelector)
+                },
+                isShowArrow = !uiState.isPrioritySelected,
+                isAccountSelected = uiState.isPrioritySelected,
+            )
+
+            SelectorComponent(
+                modifier = Modifier.padding(top = 20.dp),
+                header = "Frecuencia de uso",
+                selector = uiState.frequency?.let { Selector(1, it.description) },
+                onClicked = {
+                    onIntent(RegisterAppIntent.OnShowedFrequencySelector)
+                },
+                isShowArrow = !uiState.isFrequencySelected,
+                isAccountSelected = uiState.isFrequencySelected,
+            )
+
+
             OutlinedTextField(
                 value = uiState.usersActive,
                 onValueChange = { newText ->
@@ -204,8 +252,8 @@ fun RegisterAppScreenContent(
                 onValueChange = { newText ->
                     onIntent(RegisterAppIntent.UpdateCosts(newText))
                 },
-                label = { Text("Costos operativos") },
-                placeholder = { Text("Costos operativos") },
+                label = { Text("Costos operativos S/") },
+                placeholder = { Text("Costos operativos S/") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 12.dp),
@@ -232,125 +280,7 @@ fun RegisterAppScreenContent(
                 )
             )
 
-            SelectorComponent(
-                modifier = Modifier.padding(top = 20.dp),
-                header = "Tipo de aplicación",
-                selector = uiState.typeApp?.let { Selector(1, it.description) },
-                onClicked = {
-                    onIntent(RegisterAppIntent.OnShowedTypeAppSelector)
-                },
-                isShowArrow = !uiState.isTypeAppSelected,
-                isAccountSelected = uiState.isTypeAppSelected,
-            )
-
-            SelectorComponent(
-                modifier = Modifier.padding(top = 20.dp),
-                header = "Frecuencia de uso",
-                selector = uiState.frequency?.let { Selector(1, it.description) },
-                onClicked = {
-                    onIntent(RegisterAppIntent.OnShowedFrequencySelector)
-                },
-                isShowArrow = !uiState.isFrequencySelected,
-                isAccountSelected = uiState.isFrequencySelected,
-            )
-            SelectorComponent(
-                modifier = Modifier.padding(top = 20.dp),
-                header = "Estado",
-                selector = uiState.statusApp?.let { Selector(1, it.description) },
-                onClicked = {
-                    onIntent(RegisterAppIntent.OnShowedStatusSelector)
-                },
-                isShowArrow = !uiState.isStatusSelected,
-                isAccountSelected = uiState.isStatusSelected,
-            )
-            SelectorComponent(
-                modifier = Modifier.padding(top = 20.dp),
-                header = "Prioridad",
-                selector = uiState.priority?.let { Selector(1, it.description) },
-                onClicked = {
-                    onIntent(RegisterAppIntent.OnShowedPrioritySelector)
-                },
-                isShowArrow = !uiState.isPrioritySelected,
-                isAccountSelected = uiState.isPrioritySelected,
-            )
-
             Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = "Recursos consumidos",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                fontFamily = FontFamily.Default,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            OutlinedTextField(
-                value = uiState.cpuResource,
-                onValueChange = { newText ->
-                    onIntent(RegisterAppIntent.UpdateCpuResource(newText))
-                },
-                label = { Text("CPU (%)") },
-                placeholder = { Text("CPU (%)") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                )
-            )
-            OutlinedTextField(
-                value = uiState.memoryResource,
-                onValueChange = { newText ->
-                    onIntent(RegisterAppIntent.UpdateMemoryResource(newText))
-                },
-                label = { Text("Memoria (mb)") },
-                placeholder = { Text("Memoria (mb)") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                )
-            )
-
-            OutlinedTextField(
-                value = uiState.storageResource,
-                onValueChange = { newText ->
-                    onIntent(RegisterAppIntent.UpdateStorageResource(newText))
-                },
-                label = { Text("Almacenamiento (mb)") },
-                placeholder = { Text("Almacenamiento (mb)") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                )
-            )
-            OutlinedTextField(
-                value = uiState.networkConsumptionResource,
-                onValueChange = { newText ->
-                    onIntent(RegisterAppIntent.UpdateNetworkConsumptionResource(newText))
-                },
-                label = { Text("Consumo de red Mb/s") },
-                placeholder = { Text("Consumo de red Mb/s") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                )
-            )
 
             Text(
                 text = "Datos complementarios",
@@ -414,4 +344,10 @@ fun RegisterAppScreenContent(
             )
         }
     }
+}
+
+@Preview()
+@Composable
+fun RegisterAppScreenContentPreview(){
+    RegisterAppScreenContent(RegisterAppUiState()){}
 }

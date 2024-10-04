@@ -27,7 +27,7 @@ fun KriptoNagivationHost(
                 navController.navigate(ManagerDestination.ROUTE_LIST)
             },
             navigateToRegister = {
-                navController.navigate(RegisterDestination.ROUTE_REGISTER)
+                navController.navigate(RegisterDestination.getRouteNavigateRegister(idApp = 999999))
             }
         )
 
@@ -36,7 +36,18 @@ fun KriptoNagivationHost(
                 navController.popBackStack()
             }
         )
-        managerGraph () {  }
+        managerGraph (
+            navigateToBack = {
+                navController.popBackStack()
+            },
+            navigateToDetailApp = {
+                navController.navigate(ManagerDestination.getRouteNavigateDetail(idApp = it))
+            },
+            navigateToEditApp = {
+                navController.navigate(RegisterDestination.getRouteNavigateRegister(idApp = it))
+            },
+
+        )
 
     }
 

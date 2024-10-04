@@ -6,13 +6,13 @@ import com.pe.manager.domain.entity.StatusApp
 import com.pe.manager.domain.entity.TypeApp
 
 data class RegisterAppUiState(
+    val idApp: Int? = null,
+    val title: String = "",
+    val messageSuccessful: String = "",
+    val textButton: String = "",
     val nameApp: String = "",
     val version: String = "",
     val usersActive: String = "",
-    val cpuResource: String = "",
-    val memoryResource: String = "",
-    val storageResource: String = "",
-    val networkConsumptionResource: String = "",
     val costs: String = "",
     val comments: String = "",
     val keyActivities: String = "",
@@ -28,16 +28,13 @@ data class RegisterAppUiState(
     var showPrioritySelector: Boolean = false,
     var showStatusSelector: Boolean = false,
 
-
     var typeApp: TypeApp? = null,
     var frequency: Frequency? = null,
     var priority: Priority? = null,
     var statusApp: StatusApp? = null,
 
     ){
-    val isEnabled = nameApp.isNotBlank() && version.isNotBlank() && usersActive.isNotBlank() &&
-            cpuResource.isNotBlank() && memoryResource.isNotBlank() && storageResource.isNotBlank() &&
-            networkConsumptionResource.isNotBlank() && costs.isNotBlank() &&
+    val isEnabled = nameApp.isNotBlank() && version.isNotBlank() && usersActive.isNotBlank() && costs.isNotBlank() &&
             comments.isNotBlank() && keyActivities.isNotBlank() && numberOfIncidents.isNotBlank() &&
             isTypeAppSelected && isFrequencySelected && isPrioritySelected && isStatusSelected
 }

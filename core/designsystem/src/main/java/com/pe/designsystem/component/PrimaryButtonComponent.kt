@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,23 +36,23 @@ fun PrimaryButtonComponent(
     onClicked: () -> Unit,
     name: String,
     isEnabled: Boolean = true,
-    showLoading: Boolean = false
+    showLoading: Boolean = false,
+    colorBackground: Int = R.color.button_primary_on
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val pressed by interactionSource.collectIsPressedAsState()
 
     val textColor = if (isEnabled) colorResource(id = R.color.white)
     else colorResource(id = R.color.primary_btn_text_off)
 
-    val textStyle = if (pressed)
-        MaterialTheme.typography.headlineMedium.copy(
+    val textStyle = MaterialTheme.typography.headlineMedium.copy(
             shadow = Shadow(
                 colorResource(id = R.color.white).copy(alpha = 0.8f),
                 offset = Offset(0f, 0f),
                 blurRadius = 4f
-            )
+            ),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
         )
-    else MaterialTheme.typography.headlineMedium
 
     Box(
         contentAlignment = Alignment.Center,
@@ -64,7 +65,7 @@ fun PrimaryButtonComponent(
                 onClicked()
             }
             .clip(RoundedCornerShape(30.dp))
-            .background(colorResource(id = R.color.button_primary_on))
+            .background(colorResource(id = colorBackground))
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

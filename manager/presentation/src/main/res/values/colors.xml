@@ -7,9 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF5252</color>
     <color name="shadow_button">#640AB0</color>
     <color name="primary_btn_text_off">#40FFFFFF</color>
     <color name="button_primary_on">#640AB0</color>
     <color name="primary_title">#FFFFFF</color>
     <color name="white_half">#80FFFFFF</color>
+    <color name="white_transparent">#00FFFFFF</color>
 </resources>
